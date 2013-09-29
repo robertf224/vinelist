@@ -55,6 +55,21 @@ var Main = Main || new function() {
     //dom ready
     $(function() {
 
+	$.ajax ({
+	    type:"GET",
+	    datatype:"jsonp",
+	    data: {},
+	    url:"https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"",
+	    success: function(data) {
+		console.log(data);
+	    },
+	    error: function(data) {
+		console.log("shits fucked " + JSON.stringify(data));
+	    }
+	    
+	});
+
+
 	$('#add-vine').click(function() {
 	    vinesToAdd($('#create-playlist-link').val());   
 	});

@@ -54,7 +54,12 @@ function VineCtrl($scope) {
 
     $scope.checkFail = function(url) {
 	$.ajax({
-
+	    type: "POST",
+	    url: url,
+	    success: function(data) {},
+	    error: function(data) {
+		console.log(data);
+	    },
 	});
     }
 
@@ -63,7 +68,8 @@ function VineCtrl($scope) {
 	console.log($scope.playlistName);
 	console.log("\nlength = " + $scope.vines.length);
 	for (var i=0; i<$scope.vines.length; i++) {
-	    $scope.checkFail($scope.vines[i].text);
+	    var test = $scope.checkFail($scope.vines[i].text);
+	    if (test == false) { console.log("no real vine @ " + $scope.vines[i].text);  }
 	    console.log($scope.vines[i]);
 	    outString += (($scope.vines[i].text).split("/"))[4];
 	}

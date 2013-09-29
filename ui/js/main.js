@@ -4,6 +4,10 @@ var Main = Main || new function() {
     this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
 
     this.populateHashArray = function (uid) {
+	var tempURLArray = uid.split("/");
+	console.log(tempURLArray[tempURLArray.length-1]);
+	uid = tempURLArray[tempURLArray.length-1];
+
 	$.ajax({
 	    type:"GET",
 	    url: "http://fidler.io/p/"+uid+"/string",
@@ -12,7 +16,7 @@ var Main = Main || new function() {
 		var k=0;
 		for (var i=11; i<data.length; i=i+11) {
 		    Main.hashArray[k] = data.substring(i-11, i-1);
-		    k++:
+		    k++;
 		}
 	    },
 	    error: function(data) {
@@ -84,7 +88,7 @@ var Main = Main || new function() {
 
     //dom ready
     $(function() {
-
+	
 	$.ajax ({
 	    type:"GET",
 	    datatype:"jsonp",
@@ -98,7 +102,8 @@ var Main = Main || new function() {
 	    }
 	    
 	});
-
+	
+	Main.populateHashArray(window.location.pathname);
 
 	$('#add-vine').click(function() {
 	    vinesToAdd($('#create-playlist-link').val());   

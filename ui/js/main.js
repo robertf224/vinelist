@@ -1,4 +1,9 @@
 var Main = Main || new function() {
+
+	this.getPlaylistID = function() {
+		var temparr= (window.location.pathname).split("/");
+		return temparr[2];
+}
     
     this.hashes = "";
     //this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
@@ -134,9 +139,8 @@ var Main = Main || new function() {
 		console.log("temparr =  " + temparr);
 		var uid = temparr[2];
 		console.log("UID = " + uid);
-		window.open("http://fidler.io/compile/"+uid+".mp4");
-		/*
-		$.ajax({
+		window.open("http://fidler.io/compile/"+uid);
+	/*	$.ajax({
 			type:"GET",
 			data:{"hash":uid},
 			url:"http://fidler.io/compile",

@@ -29,10 +29,11 @@ app.get('/compile/:hash', function(req, res) {
 	console.log('request received');
 	console.log(req.params.hash);
 
-	if(req.params.hash.length != 28 || req.params.hash.substring(24) != '.mp4') { res.send(404, 'nope'); return; }
+	//if(req.params.hash.length != 28 || req.params.hash.substring(24) != '.mp4') { res.send(404, 'nope'); return; }
+	if(req.params.hash.length != 24 ) { res.send(404, 'nope'); return; }
 	db.open(function(err, db) {
 		var hashes = db.collection('hashes');
-		var obj_id = BSON.ObjectID.createFromHexString(req.params.hash.substring(0, 24));
+		var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);
 		hashes.findOne({'_id': obj_id}, function(err, item) {
 			if(err || !item) {
 
@@ -101,7 +102,7 @@ app.get('/compile/:hash', function(req, res) {
 															if(!error) {
 																res.writeHead(200);
 																var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
-																stream.pipe(res);
+																stream.pipe(res, {"Content-Type": "video/mp4"});
 
 																/*var had_error = false;
 																stream.on('error', function(err){

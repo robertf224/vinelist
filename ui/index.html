@@ -34,14 +34,17 @@
             <div class="main wrapper clearfix">
 
 		<div class="create-playlist" ng-controller="VineCtrl">
-		    <input id="create-playlist-name"type="text" value="Playlist Name"></input>
+		    <input id="create-playlist-name" ng-model="playlistName" type="text" placeholder="Playlist Name" required></input>
 		    <form ng-submit="addVine()">
-			<input type="text" ng-model="vineLink" size="30" placeholder="Enter Vine Link"></input>
+			<input type="url" ng-model="vineLink" size="30" placeholder="Enter Vine Link" required></input>
+			<span class="error" ng-show="myForm.input.$error.required">Required!</span>
+			<span class="error" ng-show="myForm.input.$error.url">Not valid url!</span>
 			<input class="btn-primary" type="submit" value="+">
 		    </form>
 		    <ul class="vines-to-add">
 			<li ng-repeat="vine in vines">
-			<span class="vine-list-item">{{vine.text}}</span>
+			    <span class="vine-list-item">{{vine.text}}</span>
+			    <input type="button" value="Remove" ng-click="toggle(vine)" >
 			</li>
 		    </ul>
 		    <button class="save-button" ng-click="save()">Save Playlist</a>

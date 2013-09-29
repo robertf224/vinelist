@@ -1,4 +1,21 @@
 var Main = Main || new function() {
+    
+    this.hashes = "";
+    this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
+    this.currHashValue = 0;
+
+
+    this.nextVideo = function() {
+	console.log("next");
+	var newembed = "<iframe class='vine-embed' src='https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple' width='320' height='320' frameborder='0'></iframe><script async src='http://platform.vine.co/static/scripts/embed.js' charset='utf-8'></script>";
+	console.log(newembed);
+	$('.vine-embed').html(newembed);
+    }
+
+    this.previousVideo = function() {
+		
+    }
+
     var linkCount = 0;
     /*
      * add vines to 'vines-to-add' class
@@ -44,6 +61,15 @@ var Main = Main || new function() {
 
 	$('.save-button').click(function() {
 	    savePlaylist();	    
+	});
+
+	$('.nav-buttons #prev').click(function() {
+	    Main.previousVideo();
+	});
+
+	$('.nav-buttons #next').click(function() {
+	    console.log("next listener");
+	    Main.nextVideo();
 	});
 
     });

@@ -192,9 +192,21 @@ button {
     font-size: 48px;
 }
 
+.vine-embed {
+    display:block;
+    text-align:center;
+    width:100%;
+}
 
+.nav-buttons {
+    display:block;
+    padding: 5px;
+}
 
-
+.nav-buttons > #prev {
+    text-align:center;
+    
+}
 
 
 

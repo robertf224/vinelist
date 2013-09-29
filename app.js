@@ -17,7 +17,6 @@ app.use(express.bodyParser());
 // mongoooooooooooo letssssgoooooooooooo
 var db = new mongo.Db('vinelist', new mongo.Server('127.0.0.1', 27017, {auto_reconnect: true}), {w:1});
 
-app.use(express.static(__dirname+'/ui'));
 
 var base_url = 'https://vine.co/v/';
 var lasthash = '';
@@ -28,11 +27,12 @@ app.get('/compile/:hash', function(req, res) {
 	var list2 = '';
 
 	console.log('request received');
+	console.log(req.params.hash);
 
-	if(req.params.hash.length != 24) { res.send(404, 'nope'); return; }
+	if(req.params.hash.length != 28 || req.params.hash.substring(24) != '.mp4') { res.send(404, 'nope'); return; }
 	db.open(function(err, db) {
 		var hashes = db.collection('hashes');
-		var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);
+		var obj_id = BSON.ObjectID.createFromHexString(req.params.hash.substring(0, 24));
 		hashes.findOne({'_id': obj_id}, function(err, item) {
 			if(err || !item) {
 
@@ -191,6 +191,7 @@ app.get('/p/:hash', function(req, res) {
 
 
 
+app.use(express.static(__dirname+'/ui'));
 
 
 app.listen(80);

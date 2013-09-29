@@ -129,15 +129,25 @@ var Main = Main || new function() {
 	});
 
 	$('#compilation').click(function() {
-			$.ajax({
-				type:"POST",
-				data:{"vines":Main.hashString},
-				url:"http://fidler.io/compile",
-				success:function(data) {
-					console.log(data);
-				}
-				
-				});	
+
+		var temparr= (window.location.pathname).split("/");
+		console.log("temparr =  " + temparr);
+		var uid = temparr[2];
+		console.log("UID = " + uid);
+		window.open("http://fidler.io/compile/"+uid+".mp4");
+		/*
+		$.ajax({
+			type:"GET",
+			data:{"hash":uid},
+			url:"http://fidler.io/compile",
+			success:function(data) {
+				console.log(data);
+			},
+			error: function(data){
+				console.log("error = " + data);
+			}
+			
+		});	*/
 	});
 
     });

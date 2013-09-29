@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<title>Jordan Edwards's post on Vine</title>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# vine-app: http://ogp.me/ns/fb/vine-app#">
+	<link rel="stylesheet" type="text/css" href="https://d3422saexnbpnl.cloudfront.net/static/style.css?05142015">
+        <link rel="shortcut icon" type="image/png" href="/static/favicon.ico">
+	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/style_ie7.css?011320121402" /><![endif]-->
+	
+    <link href="//d3422saexnbpnl.cloudfront.net/static/videojs/video-js.css" rel="stylesheet">
+    <script src="//d3422saexnbpnl.cloudfront.net/static/videojs/video.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+
+    <meta property="twitter:card" content="player">
+    <meta property="twitter:title" content="Jordan Edwards's post on Vine">
+    <meta property="twitter:description" content="That&#39;s messed up ! #Mall #funny #wtf #dance #party #itookyourmomoutforsushiandbysushiImeansex">
+
+    <meta property="twitter:image" content="https://v.cdn.vine.co/r/thumbs/5CFADF8BAC990744697821691904_139df850deb.3.2.mp4_NUjC33WHVyUXJNrvLtBR3pKxwY2ajeCPnaaBmSYWpC8NKHhLIrkq_EPp7VpK3X9S.jpg?versionId=SK8uv9T0xsLBMERhKMtTeBQFNGitSOsH">
+    <meta property="twitter:site" content="@vineapp">
+    <meta property="twitter:player:width" content="435">
+    <meta property="twitter:player:height" content="435">
+    <meta property="twitter:player" content="https://vine.co/v/hnnmrvdnIBE/card">
+    <meta property="twitter:player:stream" content="https://mtc.cdn.vine.co/r/videos/BFEABCD1D8990744687939923968_16a4a6318e2.3.2_4.9XGH1XDv3k8jDGHspIbzptiS.CjreSFSO6hXyGJFEtGamzvPGXc5gI45q1mSnn.mp4?versionId=3rNEKUNSiL3tee6KT3ldDVCdY426343g">
+    <meta property="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
+
+    <!-- app card metadata -->
+    <meta property="twitter:app:name:iphone" content="Vine">
+    <meta property="twitter:app:url:iphone" content="vine://post/990745184306597888">
+    <meta property="twitter:app:id:iphone" content="592447445">
+
+    <meta property="twitter:app:name:googleplay" content="Vine">
+    <meta property="twitter:app:url:googleplay" content="https://vine.co/v/hnnmrvdnIBE">
+    <meta property="twitter:app:id:googleplay" content="co.vine.android">
+
+    <meta property="og:title" content="That&#39;s messed up ! #Mall #funny #wtf #dance #party #itookyourmomoutforsushiandbysushiImeansex">
+    <meta property="og:site_name" content="Vine">
+    <meta property="og:image" content="https://v.cdn.vine.co/r/thumbs/5CFADF8BAC990744697821691904_139df850deb.3.2.mp4_NUjC33WHVyUXJNrvLtBR3pKxwY2ajeCPnaaBmSYWpC8NKHhLIrkq_EPp7VpK3X9S.jpg?versionId=SK8uv9T0xsLBMERhKMtTeBQFNGitSOsH">
+    <meta property="fb:app_id" content="1185475921592170">
+    <meta property="og:type" content="vine-app:video" /> 
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <script>
+        _V_.options.flash.swf = "//d3422saexnbpnl.cloudfront.net/static/videojs/video-js.swf"
+        var mobile = /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent);
+        var ios = /iphone|ipad|ipod/i.test(navigator.userAgent)
+        var android = /android/i.test(navigator.userAgent);
+        var ipad = /ipad/i.test(navigator.userAgent);
+
+        var player;
+        function resize() {
+            var videoContainerSize = $('.video-container').width();
+
+            var showVolumeControl = true;
+            if (ios) {
+                
+                showVolumeControl = false;
+            }
+
+            if (android) {
+                
+                showVolumeControl = false;
+            }
+
+            if (showVolumeControl) $('.mute-button').show();
+            else $('.mute-button').hide();
+
+            player.width(videoContainerSize);
+            player.height(videoContainerSize);
+
+            var shareContainer = $('.share-page .card .info');
+            var shareTop = $('.share-page .card .user');
+            var shareMiddle = $('.share-page .card h1');
+            var shareBottom = $('.share-page .card .shot-with-vine');
+
+            shareMiddle.height(shareContainer.outerHeight() - shareTop.outerHeight() - shareBottom.outerHeight()); 
+        }
+
+        $(function () {
+            player = videojs('post', { 'children': { 'loadingSpinner': false, 'controlBar': false }}).ready(function () {
+                player = this;
+                resize();
+
+                this.load();
+                var once = false;
+                f = function() {
+                    if (once) { return; }
+                    once = true;
+
+                    if ($.cookie("post_page_volume")) {
+                        $('.mute-button').removeClass('off');
+                        $('.mute-button').addClass('on');
+                        player.volume(1);
+                    } else {
+                        this.volume(0);
+                    }
+
+                    if (!mobile)
+                        this.play();
+                };
+
+                
+                this.on('canplaythrough', f)
+                this.on('canplay', f)
+
+                if (ipad) {
+                    
+                    $('video')[0].controls = true;
+                    this.on('play', function() { $('video')[0].controls = false; });
+                }
+
+                if (android) {
+                    
+                    $('video')[0].loop = false;
+                }
+            });
+
+            $('.mute-button').click(function (e) {
+                if (player.volume() == 0) {
+                    $(e.target).removeClass('off');
+                    $(e.target).addClass('on');
+                    player.volume(1);
+                    player.currentTime(0.1);
+                    $.cookie("post_page_volume", 1, {expires: 365});
+                } else {
+                    $(e.target).removeClass('on');
+                    $(e.target).addClass('off');
+                    player.volume(0);
+                    $.removeCookie("post_page_volume");
+                }
+                return false;
+            });
+
+            $('.overlay').click(function () {
+                if (player.paused())
+                    player.play()
+                else
+                    player.pause()
+            });
+
+            $(window).resize(resize);
+        });
+    </script>
+
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34240974-1']);
+	  _gaq.push(['_setDomainName', 'vine.co']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+</head>
+
+<body class="share-page">
+
+
+
+    <div class="card">
+        <div class="video-container">
+            <div class="overlay" style="z-index: 2; position: absolute;top: 0; height: 100%; width: 100%;"></div>
+            <a href="#" class="mute-button  off "></a>
+            <video id="post" class="video-js vjs-default-skin" x-webkit-airplay="allow" loop preload="auto" autobuffer poster="https://v.cdn.vine.co/r/thumbs/5CFADF8BAC990744697821691904_139df850deb.3.2.mp4_NUjC33WHVyUXJNrvLtBR3pKxwY2ajeCPnaaBmSYWpC8NKHhLIrkq_EPp7VpK3X9S.jpg?versionId=SK8uv9T0xsLBMERhKMtTeBQFNGitSOsH">
+                <source src="https://mtc.cdn.vine.co/r/videos/BFEABCD1D8990744687939923968_16a4a6318e2.3.2_4.9XGH1XDv3k8jDGHspIbzptiS.CjreSFSO6hXyGJFEtGamzvPGXc5gI45q1mSnn.mp4?versionId=3rNEKUNSiL3tee6KT3ldDVCdY426343g" type="video/mp4">
+            </video>
+        </div>
+        <div class="info">
+            <div class="user">
+                <img src="https://v.cdn.vine.co/r/avatars/5A967E450E995982715314946048_1231cf3a60b.3.4_xeJvPlicJeIHXxvPhPn__ZJK_gIV7Vp7PDer8ym5fNrthHmdPUkxk29fzTf_yMNa.jpg?versionId=4zkBSf607RDmqU5fkjmqI0dXlneBAl2f" class="avatar">
+                <h2>Jordan Edwards</h2>
+            </div>
+            <h1>
+                <div class="inner">
+                    <p>That&#39;s messed up ! #Mall #funny #wtf #dance #party #itookyourmomoutforsushiandbysushiImeansex</p>
+                </div>
+            </h1>
+            <div class="shot-with-vine">
+                <img src="https://d3422saexnbpnl.cloudfront.net/static/images/shot_with_vine.png" width="171" height="30">
+                <a class="action-button" href="https://get.vine.co">Download App</a>
+            </div>
+        </div>
+
+    <div class="share-options hide-mobile">
+        <div class="pill">
+            <div class="embed">
+                <a href="/v/hnnmrvdnIBE/embed">
+                    <img src="https://d3422saexnbpnl.cloudfront.net/static/images/embed_button_2x.png" width="69" height="20">
+                </a>
+            </div>
+            <div class="twitter">
+                <!-- data-count="none" -->
+                <a href="https://twitter.com/share" class="twitter-share-button" style="display: none;" data-lang="en">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script type="text/javascript">
+        _gaq.push(['_setCustomVar',
+          1,               
+          'Posttype',        
+          'share-page'
+       ]);
+    </script>
+
+</body>
+</html>

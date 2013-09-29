@@ -72,28 +72,39 @@ app.post('/compile', function(req, res) {
 								if(waserror == 0) {
 									
 									//"cat v1.mpg v2.mpg v3.mpg | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 out.mp4 -y"
+									numcompleted = 0;
+									"ffmpeg -i 1.mp4 -sameq 1.mpg"
+									"ffmpeg -i 2.mp4 -sameq 2.mpg"
+									for(var i = 0; i < length; i++) {
+										exec('ffmpeg -i ' + list[i] + '.mp4 -qscale 0 ' + list[i] + '.mpg -y', function(error, stdout, stderr) {
+											numcompleted++;
+											if(numcompleted == length) {
 
-									exec('cat ' + list + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
+												exec('cat ' + list + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
 										
-										if(!error) {
-											res.writeHead(200);
-											var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
-											stream.pipe(res);
+													if(!error) {
+														res.writeHead(200);
+														var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
+														stream.pipe(res);
 
-											/*var had_error = false;
-											stream.on('error', function(err){
-											  had_error = true;
-											});*/
-											stream.on('close', function(){
-											  	fs.unlink('output.mp4');
-											});
+														/*var had_error = false;
+														stream.on('error', function(err){
+														  had_error = true;
+														});*/
+														stream.on('close', function(){
+														  	fs.unlink('output.mp4');
+														});
 
-										}
-										else{
-											res.send(404, 'nope');
-											console.log('error sending video to client');
-										}
-									});
+													}
+													else{
+														res.send(404, 'nope');
+														console.log('error compiling video');
+													}
+												});
+
+											}
+										});
+									}
 										
 								}
 								else {

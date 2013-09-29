@@ -33,10 +33,9 @@ app.get('/compile/:hash', function(req, res) {
 	db.open(function(err, db) {
 		var hashes = db.collection('hashes');
 		var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);
-		console.log(obj_id);
 		hashes.findOne({'_id': obj_id}, function(err, item) {
 			if(err || !item) {
-				console.log('404');
+
 				res.send(404, 'nope');
 				return;
 			}
@@ -44,7 +43,6 @@ app.get('/compile/:hash', function(req, res) {
 				vines = item.hash.toString();
 			}
 			db.close();
-			console.log('starting to do obtain videos: ' + vines);
 			var length = vines.length/11;
 			for(var i = 0; i < length; i++) {
 				// grab video from vine.co/vines[0], async function, save as vinehash.mp4
@@ -52,7 +50,6 @@ app.get('/compile/:hash', function(req, res) {
 				var waserror = 0, numcompleted = 0;
 				//var req_url = base_url + vinehash;
 
-				console.log(base_url + vinehash);
 				(function(hash){exec('curl -f ' + base_url + hash + ' > ' + hash + '.html', function(error, stdout, stderror) {
 					if(error) {
 						// tell client something went wrong, file didn't exist?

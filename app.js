@@ -59,7 +59,7 @@ app.post('/compile', function(req, res) {
 								console.log('404 from vine video');
 							}
 							else {
-								list += 'file \'' + hash + '.mp4\'\n';
+								list += 'hash' + '.mp4';
 							}
 
 							numcompleted++;
@@ -141,8 +141,8 @@ app.get('/p/:hash/string', function(req, res) {
 });
 
 app.get('/p/:hash', function(req, res) {
-	res.sendfile(__dir + '/ui/playlist.html');
-}
+	res.sendfile(__dirname + '/ui/playlist.html');
+});
 
 
 

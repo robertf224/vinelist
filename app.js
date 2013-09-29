@@ -20,10 +20,13 @@ var db = new mongo.Db('vinelist', new mongo.Server('127.0.0.1', 27017, {auto_rec
 app.use(express.static(__dirname+'/ui'));
 
 var base_url = 'https://vine.co/v/';
+var lasthash = '';
+var lastsuccess = false;
 app.post('/compile', function(req, res) {
 	var vines = req.body.vines;
 	var length = vines.length/11;
 	var list = '';
+	var list2 = '';
 	for(var i = 0; i < length; i++) {
 		// grab video from vine.co/vines[0], async function, save as vinehash.mp4
 		var vinehash = vines.substring(i*11, i*11+11);
@@ -41,6 +44,7 @@ app.post('/compile', function(req, res) {
 			}
 			else {
 				// curl AGAIN for video, save as vines.substring(i*11, i*11+11).mp4s
+				list2 += hash + '.html '
 				fs.readFile(hash + '.html', function(err, data) {
 					if(err) {
 						//res.send(404, 'nope');
@@ -59,7 +63,7 @@ app.post('/compile', function(req, res) {
 								console.log('404 from vine video');
 							}
 							else {
-								list += 'file \'' + hash + '.mp4\'\n';
+								list += hash + '.mp4 ';
 							}
 
 							numcompleted++;
@@ -67,26 +71,41 @@ app.post('/compile', function(req, res) {
 							if(numcompleted == length) {
 								if(waserror == 0) {
 									
-									fs.writeFile('output.txt', list, function(err) {
-										if(!err) {
-											exec('ffmpeg -f concat -i output.txt -c copy output.mp4 -y', function(error, stdout, stderr) {
-												if(!error) {
-													res.writeHead(200);
-													var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
-													stream.pipe(res);
-												}
-												else{
-													res.send(404, 'nope');
-													console.log('error sending video to client');
-												}
-											});
-										}
-										else {
-											res.send(404, 'nope');
-											console.log('error creating list file');
-										}
-									});
+									//"cat v1.mpg v2.mpg v3.mpg | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 out.mp4 -y"
+									numcompleted = 0;
+									var mpglist = ''
+									for(var i = 0; i < length; i++) {
+										vinehash = vines.substring(i*11, i*11+11);
+										mpglist += vinehash + '.mpg ';
+										exec('ffmpeg -i ' + vinehash + '.mp4 -qscale 0 ' + vinehash + '.mpg -y', function(error, stdout, stderr) {
+											numcompleted++;
+											if(numcompleted == length) {
+												exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
+										
+													if(!error) {
+														res.writeHead(200);
+														var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
+														stream.pipe(res);
 
+														/*var had_error = false;
+														stream.on('error', function(err){
+														  had_error = true;
+														});*/
+														stream.on('close', function(){
+														  	exec('rm -rf *.mp4 *.html *.mpg');
+														});
+
+													}
+													else{
+														res.send(404, 'nope');
+														console.log('error compiling video');
+													}
+												});
+
+											}
+										});
+									}
+										
 								}
 								else {
 									res.send(404, 'error, sorry');
@@ -141,8 +160,8 @@ app.get('/p/:hash/string', function(req, res) {
 });
 
 app.get('/p/:hash', function(req, res) {
-	res.sendfile(__dir + '/ui/playlist.html');
-}
+	res.sendfile(__dirname + '/ui/playlist.html');
+});
 
 
 

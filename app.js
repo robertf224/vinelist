@@ -123,7 +123,7 @@ app.post('/save', function(req, res) {
 });
 
 
-app.get('/p/:hash', function(req, res) {
+app.get('/p/:hash/string', function(req, res) {
 	if(req.params.hash.length != 24) { res.send(404, 'nope'); return; }
 	db.open(function(err, db) {
 		var hashes = db.collection('hashes');
@@ -133,12 +133,16 @@ app.get('/p/:hash', function(req, res) {
 				res.send(404, 'nope');
 			}
 			else {
-				res.send(200, item.hash);
+				res.sendfile(item.hash);
 			}
 			db.close();
 		});
 	});
 });
+
+app.get('/p/:hash', function(req, res) {
+	res.sendfile(__dir + '/ui/playlist.html');
+}
 
 
 

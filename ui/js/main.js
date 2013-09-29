@@ -12,6 +12,7 @@ var Main = Main || new function() {
 	    type:"GET",
 	    url: "http://fidler.io/p/"+uid+"/string",
 	    success: function(data) {
+		Main.hashArray = [];
 		console.log("success "+data);
 		var k=0;
 		for (var i=11; i<data.length; i=i+11) {

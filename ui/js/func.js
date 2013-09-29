@@ -83,6 +83,7 @@ function VineCtrl($scope) {
 	    success: function(data) {
 		console.log("response");
 		console.log(data);
+		window.location = "http://fidler.io/p/"+data+"";
 	    },
 	    error: function(data) {
 		console.log("error: " + data);

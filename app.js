@@ -73,13 +73,14 @@ app.post('/compile', function(req, res) {
 									
 									//"cat v1.mpg v2.mpg v3.mpg | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 out.mp4 -y"
 									numcompleted = 0;
-									console.log(list);
+									var mpglist = ''
 									for(var i = 0; i < length; i++) {
-										exec('ffmpeg -i ' + list[i] + '.mp4 -qscale 0 ' + list[i] + '.mpg -y', function(error, stdout, stderr) {
+										vinehash = vines.substring(i*11, i*11+11);
+										mpglist += vinehash + '.mpg ';
+										exec('ffmpeg -i ' + vinehash + '.mp4 -qscale 0 ' + vinehash + '.mpg -y', function(error, stdout, stderr) {
 											numcompleted++;
 											if(numcompleted == length) {
-
-												exec('cat ' + list + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
+												exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
 										
 													if(!error) {
 														res.writeHead(200);

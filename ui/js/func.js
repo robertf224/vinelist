@@ -56,7 +56,6 @@ function VineCtrl($scope) {
 	$.ajax({
 	    type: "POST",
 	    datatype: 'jsonp',
-	    jsonpCallback
 	    url: url,
 	    success: function(data) {},
 	    error: function(data) {

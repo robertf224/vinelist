@@ -2,6 +2,25 @@ var Main = Main || new function() {
     
     this.hashes = "";
     this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
+
+    this.populateHashArray = function (uid) {
+	$.ajax({
+	    type:"GET",
+	    url: "http://fidler.io/p/"+uid+"/string",
+	    success: function(data) {
+		console.log("success "+data);
+		var k=0;
+		for (var i=11; i<data.length; i=i+11) {
+		    Main.hashArray[k] = data.substring(i-11, i-1);
+		    k++:
+		}
+	    },
+	    error: function(data) {
+		console.log("fail = " + data);
+	    }
+	});
+    };
+
     this.currHashValue = 0;
 
 

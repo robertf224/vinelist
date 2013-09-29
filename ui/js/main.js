@@ -6,14 +6,25 @@ var Main = Main || new function() {
 
 
     this.nextVideo = function() {
+	Main.currHashValue = Main.currHashValue + 1;  
+	if (Main.currHashValue >= Main.hashArray.length) { 
+	    Main.currHashValue = 0;
+	}
 	console.log("next");
-	var newembed = "<iframe class='vine-embed' src='https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple' width='320' height='320' frameborder='0'></iframe><script async src='http://platform.vine.co/static/scripts/embed.js' charset='utf-8'></script>";
-	console.log(newembed);
-	$('.vine-embed').html(newembed);
+	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+	console.log(newsource);
+	$('.vine-embed').attr('src', newsource);
     }
 
     this.previousVideo = function() {
-		
+	Main.currHashValue = Main.currHashValue - 1;  
+	if (Main.currHashValue < 0) { 
+	    Main.currHashValue = Main.hashArray.length-1;
+	}
+	console.log("prev");
+	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+	console.log(newsource);
+	$('.vine-embed').attr('src', newsource);
     }
 
     var linkCount = 0;

@@ -177,7 +177,8 @@ ul > .vine-list-item {
 
 button {
     background-color: #1dc094;
-    border: none;
+    border: 1;
+    outline:none;
     border-radius: 10px;
     border-color: #007f5b;
     border-width: 1px 1px 4px 1px;

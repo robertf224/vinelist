@@ -73,8 +73,7 @@ app.post('/compile', function(req, res) {
 									
 									//"cat v1.mpg v2.mpg v3.mpg | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 out.mp4 -y"
 									numcompleted = 0;
-									"ffmpeg -i 1.mp4 -sameq 1.mpg"
-									"ffmpeg -i 2.mp4 -sameq 2.mpg"
+									console.log(list);
 									for(var i = 0; i < length; i++) {
 										exec('ffmpeg -i ' + list[i] + '.mp4 -qscale 0 ' + list[i] + '.mpg -y', function(error, stdout, stderr) {
 											numcompleted++;

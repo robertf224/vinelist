@@ -92,7 +92,7 @@ app.post('/compile', function(req, res) {
 														  had_error = true;
 														});*/
 														stream.on('close', function(){
-														  	fs.unlink('output.mp4');
+														  	exec('rm -rf *.mp4 *.html *.mpg');
 														});
 
 													}

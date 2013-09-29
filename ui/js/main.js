@@ -1,7 +1,9 @@
 var Main = Main || new function() {
     
     this.hashes = "";
-    this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
+    //this.hashArray = ["bgep05eMY3l", "hhrWdw3FJx3"];
+    this.hashArray = [];
+		this.hashString = "";
 
     this.populateHashArray = function (uid) {
 	var tempURLArray = uid.split("/");
@@ -14,11 +16,14 @@ var Main = Main || new function() {
 	    success: function(data) {
 		Main.hashArray = [];
 		console.log("success "+data);
-		var k=0;
-		for (var i=11; i<data.length; i=i+11) {
-		    Main.hashArray[k] = data.substring(i-11, i-1);
-		    k++;
+		var length = data.length/11;
+		for (var i=0; i<length; i++) {
+		    Main.hashArray.push(data.substring(i*11, i*11+11));
 		}
+		Main.hashString = data;
+		var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+		console.log(newsource);
+		$('.vine-embed').attr('src', newsource);
 	    },
 	    error: function(data) {
 		console.log("fail = " + data);
@@ -121,6 +126,18 @@ var Main = Main || new function() {
 	$('.nav-buttons #next').click(function() {
 	    console.log("next listener");
 	    Main.nextVideo();
+	});
+
+	$('#compilation').click(function() {
+			$.ajax({
+				type:"POST",
+				data:{"vines":Main.hashString},
+				url:"http://fidler.io/compile",
+				success:function(data) {
+					console.log(data);
+				}
+				
+				});	
 	});
 
     });

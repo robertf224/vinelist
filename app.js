@@ -24,7 +24,6 @@ var lasthash = '';
 var lastsuccess = false;
 app.get('/compile/:hash', function(req, res) {
 	var vines = '';
-	var length = vines.length/11;
 	var list = '';
 	var list2 = '';
 
@@ -37,21 +36,24 @@ app.get('/compile/:hash', function(req, res) {
 		console.log(obj_id);
 		hashes.findOne({'_id': obj_id}, function(err, item) {
 			if(err || !item) {
+				console.log('404');
 				res.send(404, 'nope');
+				return;
 			}
 			else {
 				vines = item.hash.toString();
 			}
 			db.close();
 			console.log('starting to do obtain videos: ' + vines);
+			var length = vines.length/11;
 			for(var i = 0; i < length; i++) {
 				// grab video from vine.co/vines[0], async function, save as vinehash.mp4
 				var vinehash = vines.substring(i*11, i*11+11);
 				var waserror = 0, numcompleted = 0;
 				//var req_url = base_url + vinehash;
 
-				(function(hash){exec('curl -f ' + base_url + vinehash + ' > ' + hash + '.html', function(error, stdout, stderror) {
-					
+				console.log(base_url + vinehash);
+				(function(hash){exec('curl -f ' + base_url + hash + ' > ' + hash + '.html', function(error, stdout, stderror) {
 					if(error) {
 						// tell client something went wrong, file didn't exist?
 						// end response

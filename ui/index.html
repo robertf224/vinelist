@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -33,13 +33,18 @@
         <div class="main-container">
             <div class="main wrapper clearfix">
 
-		<div class="create-playlist">
+		<div class="create-playlist" ng-controller="VineCtrl">
 		    <input id="create-playlist-name"type="text" value="Playlist Name"></input>
-		    <input id="create-playlist-link" type="link" value="Enter Vine url"></input>
-		    <button id="add-vine">+</button>
+		    <form ng-submit="addVine()">
+			<input type="text" ng-model="vineLink" size="30" placeholder="Enter Vine Link"></input>
+			<input class="btn-primary" type="submit" value="+">
+		    </form>
 		    <ul class="vines-to-add">
-					
+			<li ng-repeat="vine in vines">
+			<span class="vine-list-item">{{vine.text}}</span>
+			</li>
 		    </ul>
+		    <button class="save-button" ng-click="save()">Save Playlist</a>
 		</div>
 
             </div> <!-- #main -->
@@ -50,8 +55,8 @@
                 <h3>Rob + Indraneel</h3>
             </footer>
         </div>
-	
-	<script 
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>	
+	<script src="js/func.js"></script>
         <script src="ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 

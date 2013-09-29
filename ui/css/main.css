@@ -157,11 +157,40 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+.create-playlist {
+    margin: 0 auto;
+    text-align: center;
+}
 
+ul {
+    list-style-type:none;
+    margin: 0 auto;
+    padding: 40px;
+}
 
+ul > .vine-list-item {
+    background: #549986; 
+    padding: 10px;
+    width: 50%;
+    margin: 0 auto;
+}
 
+button {
+    background-color: #1dc094;
+    border: none;
+    border-radius: 10px;
+    border-color: #007f5b;
+    border-width: 1px 1px 4px 1px;
+    padding: 5px 15px;
+}
 
-
+#create-playlist-name {
+    border: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 48px;
+}
 
 
 

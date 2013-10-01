@@ -26,8 +26,6 @@ app.get('/compile/:hash', function(req, res) {
 	var list = '';
 	var list2 = '';
 
-	console.log('request received');
-	console.log(req.params.hash);
 
 	//if(req.params.hash.length != 28 || req.params.hash.substring(24) != '.mp4') { res.send(404, 'nope'); return; }
 	if(req.params.hash.length != 24 ) { res.send(404, 'nope'); return; }
@@ -57,7 +55,6 @@ app.get('/compile/:hash', function(req, res) {
 						// end response
 						//res.send(404, 'nope');
 						waserror = 1;
-						console.log('404 from vine html');
 					}
 					else {
 						// curl AGAIN for video, save as vines.substring(i*11, i*11+11).mp4s
@@ -66,7 +63,6 @@ app.get('/compile/:hash', function(req, res) {
 							if(err) {
 								//res.send(404, 'nope');
 								waserror = 1;
-								console.log('error reading vine html');
 							}
 							else {
 								var $ = cheerio.load(data.toString());
@@ -77,7 +73,7 @@ app.get('/compile/:hash', function(req, res) {
 									if(error) {
 										//res.send(404, 'nope');
 										waserror = 1;
-										console.log('404 from vine video');
+										//console.log('404 from vine video');
 									}
 									else {
 										list += hash + '.mp4 ';
@@ -97,12 +93,12 @@ app.get('/compile/:hash', function(req, res) {
 												exec('ffmpeg -i ' + vinehash + '.mp4 -qscale 0 ' + vinehash + '.mpg -y', function(error, stdout, stderr) {
 													numcompleted++;
 													if(numcompleted == length) {
-														exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 output.mp4 -y', function(error, stdout, stderr) {
+														exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 ' + req.params.hash + '.mp4 -y', function(error, stdout, stderr) {
 												
 															if(!error) {
 																res.writeHead(200);
-																var stream = fs.createReadStream('output.mp4', { bufferSize: 64 * 1024 });
-																stream.pipe(res, {"Content-Type": "video/mp4"});
+																var stream = fs.createReadStream(req.params.hash + '.mp4', { bufferSize: 64 * 1024 });
+																stream.pipe(res, {"Content-Type": "video/mp4", "Content-Disposition": "attachment; filename=compilation.mp4"});
 
 																/*var had_error = false;
 																stream.on('error', function(err){
@@ -115,7 +111,7 @@ app.get('/compile/:hash', function(req, res) {
 															}
 															else{
 																res.send(404, 'nope');
-																console.log('error compiling video');
+																//console.log('error compiling video');
 															}
 														});
 
@@ -138,7 +134,7 @@ app.get('/compile/:hash', function(req, res) {
 		});
 	});
 
-	console.log(vines);
+	//console.log(vines);
 
 
 
@@ -194,5 +190,6 @@ app.get('/p/:hash', function(req, res) {
 
 app.use(express.static(__dirname+'/ui'));
 
-
 app.listen(80);
+
+//process.on('uncaughtException', function(err) { });

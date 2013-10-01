@@ -78,12 +78,12 @@ function VineCtrl($scope) {
 	    
 	$.ajax({
 	    type: "POST",
-	    url: "http://fidler.io/save",
+	    url: "http://vinelist.co/save",
 	    data: "vines="+outString,
 	    success: function(data) {
 		console.log("response");
 		console.log(data);
-		window.location = "http://fidler.io/p/"+data+"";
+		window.location = "http://vinelist.co/p/"+data+"";
 	    },
 	    error: function(data) {
 		console.log("error: " + data);

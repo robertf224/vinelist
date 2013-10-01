@@ -17,7 +17,7 @@ var Main = Main || new function() {
 
 	$.ajax({
 	    type:"GET",
-	    url: "http://fidler.io/p/"+uid+"/string",
+	    url: "http://vinelist.co/p/"+uid+"/string",
 	    success: function(data) {
 		Main.hashArray = [];
 		console.log("success "+data);
@@ -139,7 +139,7 @@ var Main = Main || new function() {
 		console.log("temparr =  " + temparr);
 		var uid = temparr[2];
 		console.log("UID = " + uid);
-		window.open("http://fidler.io/compile/"+uid);
+		window.open("http://vinelist.co/compile/"+uid);
 	/*	$.ajax({
 			type:"GET",
 			data:{"hash":uid},

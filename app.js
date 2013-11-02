@@ -190,6 +190,6 @@ app.get('/p/:hash', function(req, res) {
 
 app.use(express.static(__dirname+'/ui'));
 
-app.listen(80);
+app.listen(9000);
 
 //process.on('uncaughtException', function(err) { });

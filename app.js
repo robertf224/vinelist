@@ -23,7 +23,7 @@ var db = new mongo.Db('vinelist', new mongo.Server('127.0.0.1', 27017, {auto_rec
 var base_url = 'https://vine.co/v/';
 
 // Video compilation route
-app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
+app.get('/compile/:hash([0-9a-f]{24})/:name.mp4', function(req, res) {
 	// Lookup hash in db
 	var hashes = db.collection('hashes');
 	var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);

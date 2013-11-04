@@ -51,7 +51,7 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 			i++;
 		}
 		if(!sessionDir) {
-			res.send(404, 'stahhhppp');
+			res.send(500, 'stahhhppp');
 			return;
 		}
 		
@@ -63,11 +63,11 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 				stream.pipe(res, {"Content-Type": "video/mp4"});
 
 				stream.on('close', function() {
-					//exec('rm -rf '+sessionDir+'/* '+sessionDir);
+					exec('rm -rf '+sessionDir+'/* '+sessionDir);
 				});
 			}
 			else{
-				//exec('rm -rf '+sessionDir+'/* '+sessionDir);
+				exec('rm -rf '+sessionDir+'/* '+sessionDir);
 				res.send(404, 'nope');
 			}
 		});
@@ -75,8 +75,6 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 });
 // Compile vines into playlist-name.mp4 into session directory from downloaded files
 function compileVines(sessionDir, vines, callback) {
-	console.log('made it to compilation phase');
-
 	fs.mkdirSync(sessionDir);
 
 	downloadVines(sessionDir, vines, function(err) {
@@ -106,14 +104,12 @@ function compileVines(sessionDir, vines, callback) {
 }
 // Function to download vine mp4 files
 function downloadVines(sessionDir, vines, callback) {
-	console.log('made it to download phase');
-
 	var length = vines.length/11;
 	var waserror = 0, numcompleted = 0;
 	for(var i=0; i<length; i++) {
 		var vhash = vines.substring(i*11, i*11+11);
 
-		// curl for vine web page
+		// Closure to do the heavy lifting for each vine in the compilation
 		(function(vinehash){exec('curl -f ' + base_url + vinehash + ' > ' + sessionDir+'/'+vinehash+'.html', function(error, stdout, stderror) {
 			if(error) {
 				waserror = 1;
@@ -134,7 +130,6 @@ function downloadVines(sessionDir, vines, callback) {
 
 						exec('curl -f ' + video + ' > ' + sessionDir+'/'+vinehash+'.mp4', function(error, stdout, stderror) {
 							if(error) {
-								console.log('error curling: ' + video);
 								waserror = 1;
 								numcompleted++;
 								if(numcompleted == length) callback(1);
@@ -167,8 +162,6 @@ function downloadVines(sessionDir, vines, callback) {
 }
 // Convert vine mp4 files to mpg files
 function convertVines(sessionDir, vines, callback) {
-	console.log('made it to convert phase');
-
 	var length = vines.length/11;
 	var numcompleted = 0;
 	for(var i=0; i<length; i++) {
@@ -191,7 +184,7 @@ app.post('/save', function(req, res) {
 
 	// Basic hash validity check, could be improved by checking with Vine that links
 	// are valid, but we are assuming users are using the service correctly for now
-	if(!(vines.length % 11 == 0 && vines.length > 0)) {
+	if(!(vines.length % 11 == 0 && vines.length > 0 && name != null)) {
 		res.send(404, 'nope');
 	}
 

@@ -46,7 +46,7 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 		while(i < 10) {
 			// If we're compiling more than 10 copies of the same playlist at once we're screwed anyway
 			probeDir = req.params.hash+'-'+i;
-			if(fs.existsSync(probeDir) && fs.lstatSync(probeDir).isDirectory()) {
+			if(!fs.existsSync(probeDir)) {
 				sessionDir = probeDir;
 				break;
 			} 
@@ -54,6 +54,7 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 		}
 		if(!sessionDir) {
 			res.send(404, 'stahhhppp');
+			return;
 		}
 		
 		

@@ -29,7 +29,6 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 	var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);
 	hashes.findOne({'_id': obj_id}, function(err, item) {
 		var vines = '';
-		var name = '';
 
 		if(err || !item) {
 			res.send(404, 'nope');
@@ -37,7 +36,6 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 		}
 		else {
 			vines = item.hash.toString();
-			name = item.name.toString();
 		}
 
 		// Generate a dirname for this video compilation session
@@ -58,30 +56,30 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 		}
 		
 		
-		compileVines(sessionDir, vines, name, function(err) {
+		compileVines(sessionDir, vines, function(err) {
 			if(!err) {
 				res.writeHead(200);
-				var stream = fs.createReadStream(sessionDir+'/'+name + '.mp4', { bufferSize: 64 * 1024 });
+				var stream = fs.createReadStream(sessionDir+'/output.mp4', { bufferSize: 64 * 1024 });
 				stream.pipe(res, {"Content-Type": "video/mp4"});
 
 				stream.on('close', function() {
-					exec('rm -rf '+sessionDir+'/* '+sessionDir);
+					//exec('rm -rf '+sessionDir+'/* '+sessionDir);
 				});
 			}
 			else{
-				exec('rm -rf '+sessionDir+'/* '+sessionDir);
+				//exec('rm -rf '+sessionDir+'/* '+sessionDir);
 				res.send(404, 'nope');
 			}
 		});
 	});
 });
 // Compile vines into playlist-name.mp4 into session directory from downloaded files
-function compileVines(sessionDir, vines, name, callback) {
+function compileVines(sessionDir, vines, callback) {
 	console.log('made it to compilation phase');
 
 	fs.mkdirSync(sessionDir);
 
-	downloadVines(sessionDir, vines, name, function(err) {
+	downloadVines(sessionDir, vines, function(err) {
 		if(err) {
 			callback(1);
 			return;
@@ -96,7 +94,7 @@ function compileVines(sessionDir, vines, name, callback) {
 		}
 
 		// Compile mpg files into a single mp4 file
-		exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 ' + sessionDir+'/'+name+'.mp4 -y', function(error, stdout, stderr) {
+		exec('cat ' + mpglist + ' | ffmpeg -f mpeg -i - -qscale 0 -strict -2 -vcodec mpeg4 ' + sessionDir+'/output.mp4 -y', function(error, stdout, stderr) {
 			if(error) {
 				callback(1);
 			}
@@ -107,7 +105,7 @@ function compileVines(sessionDir, vines, name, callback) {
 	});	
 }
 // Function to download vine mp4 files
-function downloadVines(sessionDir, vines, name, callback) {
+function downloadVines(sessionDir, vines, callback) {
 	console.log('made it to download phase');
 
 	var length = vines.length/11;
@@ -147,7 +145,7 @@ function downloadVines(sessionDir, vines, name, callback) {
 
 							if(numcompleted == length) {
 								if(waserror == 0) {
-									convertVines(sessionDir, vines, name, function(err) {
+									convertVines(sessionDir, vines, unction(err) {
 										if(err) {
 											callback(1);
 										}
@@ -168,7 +166,7 @@ function downloadVines(sessionDir, vines, name, callback) {
 	}
 }
 // Convert vine mp4 files to mpg files
-function convertVines(sessionDir, vines, name, callback) {
+function convertVines(sessionDir, vines, callback) {
 	console.log('made it to convert phase');
 
 	var length = vines.length/11;

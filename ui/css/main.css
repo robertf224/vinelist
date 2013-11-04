@@ -160,8 +160,9 @@ nav a:hover {
 .create-playlist {
     margin: 0 auto;
     text-align: center;
-    width: 480px;
 }
+
+
 
 ul {
     list-style-type:none;
@@ -198,6 +199,8 @@ button {
     display:block;
     text-align:center;
     width:100%;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
 .nav-buttons {

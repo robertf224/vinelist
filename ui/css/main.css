@@ -225,12 +225,23 @@ form input[type=url] {
 }
 
 
+
 @media only screen and (max-width: 480px) {
+
 
     #create-playlist-name {
 	font-size: 24px;
     }
 
+    #display-playlist-name {
+	text-align: center;
+	font: 1.2em;
+	color: #FFFFFF;
+    }
+
+    .title {
+	text-align: center;
+    }
     /*
     .logo {
     }
@@ -308,6 +319,8 @@ form input[type=url] {
         float: right;
         width: 38%;
 	text-align: right;
+    }
+    #display-playlist-name {
 	color: #FFFFFF;
 	font-size: 2em;
 	margin: .67em 0px;

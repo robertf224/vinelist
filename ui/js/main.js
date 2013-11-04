@@ -97,6 +97,10 @@ var Main = Main || new function() {
     function removeListItem() {
     }
 
+    function writeName(name) {
+	$('#display-playlist-name").html(name);	
+    }
+
     //dom ready
     $(function() {
 	
@@ -114,8 +118,8 @@ var Main = Main || new function() {
 	    
 	});
 
-	/*
-	var tempURLArray = uid.split("/");
+	
+	var tempURLArray = (window.location.pathname).split("/");
 	console.log(tempURLArray[tempURLArray.length-1]);
 	var uid = tempURLArray[tempURLArray.length-1];
 	$.ajax ({
@@ -123,12 +127,13 @@ var Main = Main || new function() {
 	    url: "http://vinelist.co/p/"+uid+"/name",
 	    success: function(data) {
 		console.log("this is the name = " + data);
+		writeName(data);
 	    },
 	    error: function(data) {
 		console.log("error: " + data);
 	    }
 	});
-	*/
+	
 	
 	Main.populateHashArray(window.location.pathname);
 

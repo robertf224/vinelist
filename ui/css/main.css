@@ -160,6 +160,7 @@ nav a:hover {
 .create-playlist {
     margin: 0 auto;
     text-align: center;
+    width: 480px;
 }
 
 ul {
@@ -209,7 +210,8 @@ button {
     width: 118px;
 }
 
-.nav-buttons #prev {
+.nav-buttons #next{
+    text-align:center;
     width: 118px;
 }
 

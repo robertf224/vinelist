@@ -77,6 +77,8 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 });
 // Compile vines into playlist-name.mp4 into session directory from downloaded files
 function compileVines(sessionDir, vines, name, callback) {
+	console.log('made it to compilation phase');
+
 	fs.mkdirSync(sessionDir);
 
 	downloadVines(sessionDir, vines, name, function(err) {
@@ -106,6 +108,8 @@ function compileVines(sessionDir, vines, name, callback) {
 }
 // Function to download vine mp4 files
 function downloadVines(sessionDir, vines, name, callback) {
+	console.log('made it to download phase');
+
 	var length = vines.length/11;
 	var waserror = 0, numcompleted = 0;
 	for(var i=0; i<length; i++) {
@@ -164,8 +168,10 @@ function downloadVines(sessionDir, vines, name, callback) {
 }
 // Convert vine mp4 files to mpg files
 function convertVines(sessionDir, vines, name, callback) {
+	console.log('made it to convert phase');
+
 	var length = vines.length/11;
-	var waserror = 0, numcompleted = 0;
+	var numcompleted = 0;
 	for(var i=0; i<length; i++) {
 		var vinehash = vines.substring(i*11, i*11+11);
 		exec('ffmpeg -i ' + sessionDir+'/'+vinehash+'.mp4 -qscale 0 ' + sessionDir+'/'+vinehash+'.mpg -y', function(error, stdout, stderr) {

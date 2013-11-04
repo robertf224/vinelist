@@ -192,7 +192,6 @@ function convertVines(sessionDir, vines, name, callback) {
 
 // Save playlist to database
 app.post('/save', function(req, res) {
-	console.log('request...');
 	var vines = req.body.vines;
 	var name = req.body.name;
 

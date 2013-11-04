@@ -169,22 +169,10 @@ function convertVines(sessionDir, vines, name, callback) {
 	for(var i=0; i<length; i++) {
 		var vinehash = vines.substring(i*11, i*11+11);
 		exec('ffmpeg -i ' + sessionDir+'/'+vinehash+'.mp4 -qscale 0 ' + sessionDir+'/'+vinehash+'.mpg -y', function(error, stdout, stderr) {
-			if(error) {
-				waserror = 1;
-				numcompleted++;
-				if(numcompleted == length) callback(1);
+			numcompleted++;
+			if(numcompleted == length) {
+				callback(null);
 				return;
-			}
-			else {
-				numcompleted++;
-				if(numcompleted == length) {
-					if(waserror) {
-						callback(1);
-					}
-					else {
-						callback(null);
-					}
-				}
 			}
 		});
 	}

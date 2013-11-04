@@ -69,6 +69,10 @@ function VineCtrl($scope) {
 	var outString = "";
 	console.log($scope.playlistName);
 	console.log("\nlength = " + $scope.vines.length);
+	if ($scope.vines.length < 1) {
+	    console.log("can't save an empty list\n");
+	    return;
+	}
 	for (var i=0; i<$scope.vines.length; i++) {
 	    var test = $scope.checkFail($scope.vines[i].text);
 	    if (test == false) { console.log("no real vine @ " + $scope.vines[i].text);  }

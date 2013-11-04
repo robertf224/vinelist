@@ -88,6 +88,9 @@ body {
     background: #1dc094;
 }
 
+.logo {
+    display:none;
+}
 .title {
     color: white;
 }
@@ -228,6 +231,13 @@ form input[type=url] {
 
     #create-playlist-name {
 	font-size: 24px;
+    }
+
+    .logo {
+    }
+
+    #text-logo{
+	display:none;
     }
 
 }

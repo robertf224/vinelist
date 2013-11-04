@@ -113,6 +113,20 @@ var Main = Main || new function() {
 	    }
 	    
 	});
+
+	var tempURLArray = uid.split("/");
+	console.log(tempURLArray[tempURLArray.length-1]);
+	var uid = tempURLArray[tempURLArray.length-1];
+	$.ajax ({
+	    type:"GET",
+	    url: "http://vinelist.co/p/"+uid+"/name",
+	    success: function(data) {
+		console.log("this is the name = " + data);
+	    },
+	    error: function(data) {
+		console.log("error: " + data);
+	    }
+	});
 	
 	Main.populateHashArray(window.location.pathname);
 

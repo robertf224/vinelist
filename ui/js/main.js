@@ -98,7 +98,7 @@ var Main = Main || new function() {
     }
 
     function writeName(name) {
-	$('#display-playlist-name").html(name);	
+	$('#display-playlist-name').html(name);	
     }
 
     //dom ready

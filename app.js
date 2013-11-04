@@ -136,6 +136,7 @@ function downloadVines(sessionDir, vines, name, callback) {
 
 						exec('curl -f ' + video + ' > ' + sessionDir+'/'+vinehash+'.mp4', function(error, stdout, stderror) {
 							if(error) {
+								console.log('error curling: ' + video);
 								waserror = 1;
 								numcompleted++;
 								if(numcompleted == length) callback(1);

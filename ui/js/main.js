@@ -139,7 +139,7 @@ var Main = Main || new function() {
 		console.log("temparr =  " + temparr);
 		var uid = temparr[2];
 		console.log("UID = " + uid);
-		window.open("http://vinelist.co/compile/"+uid);
+		window.open("http://vinelist.co/compile/"+uid+".mp4");
 	/*	$.ajax({
 			type:"GET",
 			data:{"hash":uid},

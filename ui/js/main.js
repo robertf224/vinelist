@@ -114,6 +114,7 @@ var Main = Main || new function() {
 	    
 	});
 
+	/*
 	var tempURLArray = uid.split("/");
 	console.log(tempURLArray[tempURLArray.length-1]);
 	var uid = tempURLArray[tempURLArray.length-1];
@@ -127,6 +128,7 @@ var Main = Main || new function() {
 		console.log("error: " + data);
 	    }
 	});
+	*/
 	
 	Main.populateHashArray(window.location.pathname);
 

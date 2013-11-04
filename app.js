@@ -201,6 +201,7 @@ app.post('/save', function(req, res) {
 	})
 });
 // Return playlist name, empty string if nonexistent
+/*
 app.get('/p/:hash([0-9a-f]{24})/string', function(req, res) {
 	var hashes = db.collection('hashes');
 	var obj_id = BSON.ObjectID.createFromHexString(req.params.hash);
@@ -216,7 +217,7 @@ app.get('/p/:hash([0-9a-f]{24})/string', function(req, res) {
 		}
 	});
 });
-
+*/
 // Get vine hashes concatenated string for given hash url
 app.get('/p/:hash([0-9a-f]{24})/string', function(req, res) {
 	var hashes = db.collection('hashes');

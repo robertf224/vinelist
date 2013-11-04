@@ -163,7 +163,6 @@ nav a:hover {
 .create-playlist {
     margin: 0 auto;
     text-align: center;
-    width: 480px;
 }
 
 ul {
@@ -201,6 +200,7 @@ button {
     display:block;
     text-align:center;
     width:100%;
+    max-width: 480px;
 }
 
 .nav-buttons {
@@ -230,12 +230,14 @@ form input[type=url] {
 	font-size: 24px;
     }
 
+    /*
     .logo {
     }
 
     #text-logo{
 	display:none;
     }
+    */
 
 }
 

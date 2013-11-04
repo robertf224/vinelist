@@ -145,7 +145,7 @@ function downloadVines(sessionDir, vines, callback) {
 
 							if(numcompleted == length) {
 								if(waserror == 0) {
-									convertVines(sessionDir, vines, unction(err) {
+									convertVines(sessionDir, vines, function(err) {
 										if(err) {
 											callback(1);
 										}

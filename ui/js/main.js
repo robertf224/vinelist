@@ -122,12 +122,15 @@ var Main = Main || new function() {
 	var tempURLArray = (window.location.pathname).split("/");
 	console.log(tempURLArray[tempURLArray.length-1]);
 	var uid = tempURLArray[tempURLArray.length-1];
+	var name = "compilation.mp4";
 	$.ajax ({
 	    type:"GET",
 	    url: "http://vinelist.co/p/"+uid+"/name",
 	    success: function(data) {
 		console.log("this is the name = " + data);
+		name = data;
 		writeName(data);
+
 	    },
 	    error: function(data) {
 		console.log("error: " + data);
@@ -160,7 +163,7 @@ var Main = Main || new function() {
 		console.log("temparr =  " + temparr);
 		var uid = temparr[2];
 		console.log("UID = " + uid);
-		window.open("http://vinelist.co/compile/"+uid+".mp4");
+		window.open("http://vinelist.co/compile/"+uid+"/"+name+".mp4");
 	/*	$.ajax({
 			type:"GET",
 			data:{"hash":uid},

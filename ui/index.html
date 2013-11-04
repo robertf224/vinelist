@@ -23,10 +23,6 @@
         <div class="header-container">
             <header class="wrapper clearfix">
                 <h1 class="title"><a href="http://vinelist.co" style="text-decoration:none; color:#FFFFFF">Vinelist</a></h1>
-                <nav>
-                    <ul>
-                    </ul>
-                </nav>
             </header>
         </div>
 
@@ -44,7 +40,7 @@
 		    <ul class="vines-to-add">
 			<li ng-repeat="vine in vines">
 			    <span class="vine-list-item">{{vine.text}}</span>
-			    <input type="button" value="Remove" ng-click="toggle(vine)" >
+			    <input type="button" value="-" ng-click="toggle(vine)" >
 			</li>
 		    </ul>
 		    <button class="save-button" ng-click="save()">Save Playlist</a>

@@ -165,7 +165,7 @@ nav a:hover {
 ul {
     list-style-type:none;
     margin: 0 auto;
-    padding: 40px;
+    padding: 40px 10px;
 }
 
 ul > .vine-list-item {
@@ -204,12 +204,28 @@ button {
     padding: 5px;
 }
 
-.nav-buttons > #prev {
+.nav-buttons #prev {
     text-align:center;
-    
+    width: 118px;
+}
+
+.nav-buttons #prev {
+    width: 118px;
 }
 
 
+form input[type=url] {
+    width: 215px;
+}
+
+
+@media only screen and (max-width: 480px) {
+
+    #create-playlist-name {
+	font-size: 24px;
+    }
+
+}
 
 
 
@@ -276,6 +292,10 @@ button {
     nav {
         float: right;
         width: 38%;
+	text-align: right;
+	color: #FFFFFF;
+	font-size: 2em;
+	margin: .67em 0px;
     }
 
 /* ============

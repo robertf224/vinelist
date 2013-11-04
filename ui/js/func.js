@@ -33,6 +33,7 @@ function VineCtrl($scope) {
 	    return;
 	}
 	$scope.vines.push({text:$scope.vineLink, notRemoved:true});
+	$scope.vineLink = '';
     };
 
     $scope.vineitize = function(url) {

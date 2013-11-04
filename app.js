@@ -111,10 +111,10 @@ function downloadVines(sessionDir, vines, callback) {
 	var length = vines.length/11;
 	var waserror = 0, numcompleted = 0;
 	for(var i=0; i<length; i++) {
-		var vinehash = vines.substring(i*11, i*11+11);
+		var vhash = vines.substring(i*11, i*11+11);
 
 		// curl for vine web page
-		exec('curl -f ' + base_url + vinehash + ' > ' + sessionDir+'/'+vinehash+'.html', function(error, stdout, stderror) {
+		(function(vinehash){exec('curl -f ' + base_url + vinehash + ' > ' + sessionDir+'/'+vinehash+'.html', function(error, stdout, stderror) {
 			if(error) {
 				waserror = 1;
 				numcompleted++;
@@ -162,7 +162,7 @@ function downloadVines(sessionDir, vines, callback) {
 					}
 				});
 			}
-		});
+		});})(vhash);
 	}
 }
 // Convert vine mp4 files to mpg files

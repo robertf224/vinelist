@@ -79,7 +79,7 @@ function VineCtrl($scope) {
 	$.ajax({
 	    type: "POST",
 	    url: "http://vinelist.co/save",
-	    data: "vines="+outString,
+	    data: "vines="+outString+"&name="+$scope.playlistName,
 	    success: function(data) {
 		console.log("response");
 		console.log(data);

@@ -59,7 +59,7 @@ app.get('/compile/:hash([0-9a-f]{24}).mp4', function(req, res) {
 		
 		
 		compileVines(sessionDir, vines, name, function(err) {
-			if(!error) {
+			if(!err) {
 				res.writeHead(200);
 				var stream = fs.createReadStream(sessionDir+'/'+name + '.mp4', { bufferSize: 64 * 1024 });
 				stream.pipe(res, {"Content-Type": "video/mp4"});

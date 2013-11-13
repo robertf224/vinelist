@@ -26,7 +26,7 @@ var Main = Main || new function() {
 		    Main.hashArray.push(data.substring(i*11, i*11+11));
 		}
 		Main.hashString = data;
-		var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+		var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple?audio=1";
 		console.log(newsource);
 		$('.vine-embed').attr('src', newsource);
 	    },
@@ -45,7 +45,7 @@ var Main = Main || new function() {
 	    Main.currHashValue = 0;
 	}
 	console.log("next");
-	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple?audio=1";
 	console.log(newsource);
 	$('.vine-embed').attr('src', newsource);
     }
@@ -56,7 +56,7 @@ var Main = Main || new function() {
 	    Main.currHashValue = Main.hashArray.length-1;
 	}
 	console.log("prev");
-	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple";
+	var newsource = "https://vine.co/v/"+Main.hashArray[Main.currHashValue]+"/embed/simple?audio=1";
 	console.log(newsource);
 	$('.vine-embed').attr('src', newsource);
     }

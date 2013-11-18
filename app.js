@@ -31,7 +31,7 @@ app.get('/compile/:hash([0-9a-f]{24})/:name.mp4', function(req, res) {
 		var vines = '';
 
 		if(err || !item) {
-			res.send(404, 'nope');
+			res.send(404, 'bad hash');
 			return;
 		}
 		else {
@@ -68,7 +68,7 @@ app.get('/compile/:hash([0-9a-f]{24})/:name.mp4', function(req, res) {
 			}
 			else{
 				exec('rm -rf '+sessionDir+'/* '+sessionDir);
-				res.send(404, 'nope');
+				res.send(404, 'error compiling video');
 			}
 		});
 	});

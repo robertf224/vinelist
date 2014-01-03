@@ -126,7 +126,7 @@ function downloadVines(sessionDir, vines, callback) {
 					}
 					else {
 						var $ = cheerio.load(data.toString());
-						var video = 'https:' + $('#video source').attr('src');
+						var video = $('#video source').attr('src');
 
 						exec('curl -f ' + video + ' > ' + sessionDir+'/'+vinehash+'.mp4', function(error, stdout, stderror) {
 							if(error) {
